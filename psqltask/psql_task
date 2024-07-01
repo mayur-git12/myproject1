@@ -1,0 +1,55 @@
+select * from employee;
+
+select * from employee where emp_id = 4 and emp_id = 5 or emp_name = 'rahul' or emp_name ='neha';
+
+select * from employee where emp_city LIKE '%abad%';
+
+select * from employee where emp_city LIKE '%UNDER';
+
+select * from employee where emp_city LIKE '%b__';
+
+select * from  employee where emp_city LIKE 'a%';
+
+select * from employee where emp_city LIKE '_o%';
+
+select * from employee LIMIT 10;
+
+select * from employee where emp_city = 'mumbai' LIMIT 5;
+
+select * from employee where emp_city = 'mumbai'or emp_city ='banglore' LIMIT 5;
+
+select * from employee where emp_city = 'mumbai' or emp_city = 'banglore' OFFSET  5 LIMIT 5;
+
+select * from employee where emp_city IN('mumbai','banglore') ORDER BY emp_city;
+
+select * from employee ORDER BY emp_id DESC;
+
+insert into employee(emp_id,emp_name,emp_city) VALUES (31,'naina',''),(32,'sonalika',''),(33,'tanisk',''),(34,'aliya',''),(35,'ansh','');
+
+
+select * from employee where emp_city = '';
+
+alter table employee add column date DATE;
+
+UPDATE employee set date = '2024-09-07' where emp_id IN(2,4);
+
+WHERE EXTRACT(year FROM "emp_date") = EXTRACT(year FROM CURRENT_DATE);
+
+
+insert into employee(emp_id,emp_name,emp_city) VALUES(36,'stuti','nagpur'),(37,'salman','raipur'),(38,'krishna','surat'),(39,'arun','baroda'),(40,'nitish','rajkot');
+
+select distinct emp_name,emp_city from employee;
+
+
+alter table employee add column amount int;
+
+ update employee set amount = 1500 where emp_id IN(1,2);
+
+select sum(amount) as total_amount from employee;
+
+
+
+
+
+
+
