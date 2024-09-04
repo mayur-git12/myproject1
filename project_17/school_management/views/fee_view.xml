@@ -1,0 +1,43 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_fee_tree" model="ir.ui.view">
+        <field name="name">school.fee.tree</field>
+        <field name="model">school.fee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <field name="amount"/>
+                <field name="due_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_fee_form" model="ir.ui.view">
+        <field name="name">school.fee.form</field>
+        <field name="model">school.fee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="student_id"/>
+                        <field name="class_id"/>
+                        <field name="amount"/>
+                        <field name="due_date"/>
+                        <field name="state" readonly="1"/>
+                    </group>
+                    <button string="Create Invoice" type="object" name="create_invoice" invisible="state not in ['draft']"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_fee_tree" model="ir.actions.act_window">
+        <field name="name">Fees</field>
+        <field name="res_model">school.fee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

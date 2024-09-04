@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_school_academic_year,academic_year_manager,model_academic_year,,1,1,1,1
+access_school_student,access_school_student,model_school_student,,1,1,1,1
+access_school_teacher,access_school_teacher,model_school_teacher,,1,1,1,1
+access_school_class,access_school_class,model_school_class,,1,1,1,1
+access_school_subject,access_school_subject,model_school_subject,,1,1,1,1
+access_school_attendance,access_school_attendance,model_school_attendance,,1,1,1,1
+access_school_exam,access_school_exam,model_school_exam,,1,1,1,1
+access_school_exam_result,access_school_exam_result,model_school_exam_result,,1,1,1,1
+access_school_activity_manager,school_activity_manager,model_school_activity,,1,1,1,1
+access_school_fee_manager,school_fee_manager,model_school_fee,,1,1,1,1
+access_school_performance_manager,school_performance_manager,model_school_performance,,1,1,1,1

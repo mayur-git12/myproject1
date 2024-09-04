@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="customorder.order_form_inherit" model="ir.ui.view">
+        <field name="name">order form inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Consumable">
+                    <field name="consumable_lines">
+                        <tree editable="bottom">
+                            <field name="product_id"
+                                domain="[('product_tmpl_id.type', '=', 'consu')]" />
+                            <field name="name" />
+                            <field name="product_uom_qty" />
+                            <field name="price_unit" />
+                            <field name="price_total" />
+                            
+
+                        </tree>
+                    </field>
+                </page>
+                <page string="Services">
+                    <field name="service_lines">
+                        <tree editable="bottom">
+                            <field name="product_id"
+                                domain="[('product_tmpl_id.type', '=', 'service')]" />
+                            <field name="name" />
+                            <field name="product_uom_qty" />
+                            <field name="price_unit" />
+                            <field name="price_total" />
+                            
+
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <record id="absence_notification_template" model="mail.template">
+        <field name="name">Absence Notification</field>
+        <field name="model_id" ref="school_management.model_school_attendance"/>
+        <field name="subject">Absence Notification for Your Child</field>
+        <field name="email_from">${(user.email or '')|safe}</field>
+        <field name="email_to">${(object.student_id.guardian_email or '')|safe}</field>
+        <field name="body_html" type="html">
+            <![CDATA[
+                <p>Dear ${object.student_id.guardian_name},</p>
+                <p>We regret to inform you that your child, ${object.student_id.name}, was absent on ${object.date}. 
+                Please contact the school for more information.</p>
+            ]]>
+        </field>
+    </record>
+</odoo>

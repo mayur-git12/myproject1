@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wb_job,Access WB Job,model_wb_job,base.group_user,1,0,1,1
+access_wb_activity,Access WB activity,model_wb_activity,base.group_user,1,1,1,1

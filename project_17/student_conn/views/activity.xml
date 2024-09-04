@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <odoo>
+    <record id="view_student_form_inherit" model="ir.ui.view">
+        <field name="name">wb.student.form.inherit</field>
+        <field name="model">wb.student</field>
+        <field name="inherit_id" ref="students.wb_students_form_view"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="activity_ids"/>
+                
+            </xpath>
+        </field>
+    </record> 
+
+    <record id="activity_tree_view" model="ir.ui.view">
+        <field name="name">activity.tree.view</field>
+        <field name="model">wb.activity</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="gamename"/>
+                        <field name="gametype"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="activity_tree_view_new" model="ir.ui.view">
+        <field name="name">activity.tree.view.new</field>
+        <field name="model">wb.activity</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                <field name="gamename"/>
+                        <field name="gametype"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

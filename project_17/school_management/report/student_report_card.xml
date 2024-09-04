@@ -1,0 +1,90 @@
+<odoo>
+    
+    <record id="student_report_card_action" model="ir.actions.report">
+        <field name="name">Student Report Card</field>
+        <field name="model">school.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school_management.student_report_card</field>
+        <field name="report_file">school_management.student_report_card</field>
+        <field name="print_report_name">'Student Report Card - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_school_student"/>
+        <field name="binding_type">report</field>
+    </record> 
+
+
+    <template id="student_report_card">
+        <t t-name="school_management.student_report_card">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <!-- School Information -->
+                        <div class="row mt32 mb32">
+                            <div class="col-6">
+                                <h2>School Name</h2>
+                                <p>Address: School Address Line 1<br/>
+                                    City, State, ZIP<br/>
+                                    Phone: +123-456-7890</p>
+                            </div>
+                            <div class="col-6 text-right">
+                                <h2>Report Card</h2>
+                                <p>Academic Year: <strong>2023-2024</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb16">
+                            <div class="col-4">
+                                <strong>Student Name:</strong> <span t-esc="doc.name"/>
+                            </div>
+                           
+                            <div class="col-4">
+                                <strong>Roll Number:</strong> <span t-esc="doc.roll_number"/>
+                            </div>
+                        </div>
+                        <div class="row mb16">
+                            <div class="col-4">
+                                <strong>Date of Birth:</strong> <span t-esc="doc.date_of_birth"/>
+                            </div>
+                            
+                            <div class="col-4">
+                                <strong>Status:</strong> <span t-esc="doc.status"/>
+                            </div>
+                        </div>
+
+                        <!-- Report Card Table -->
+                        <table class="table table-bordered mt32">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Marks Obtained</th>
+                                    <th>Total Marks</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.report_card_lines" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line['subject']"/></td>
+                                        <td><t t-esc="line['marks_obtained']"/></td>
+                                        <td><t t-esc="line['total_marks']"/></td>
+                                        <td><t t-esc="line['percentage']"/>%</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Footer Information -->
+                        <div class="row mt32">
+                            <div class="col-6">
+                                <strong>Principal's Signature:</strong> ____________________
+                            </div>
+                            <div class="col-6 text-right">
+                                <strong>Date:</strong> <span t-esc="fields.Date.today()"/>
+                            </div>
+                        </div>
+                        
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

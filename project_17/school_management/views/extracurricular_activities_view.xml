@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_activity_tree" model="ir.ui.view">
+        <field name="name">school.activity.tree</field>
+        <field name="model">school.activity</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_id"/>
+                <field name="activity_name"/>
+                <field name="date"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@id='informations']/div[@name='due_date']" position="after">
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.transaction" name="transaction">
+                    <strong>Transaction ID:</strong><br/>
+                    <span t-field="o.transaction"/>
+                </div>
+            
+                        
+            <!-- <xpath expr="//div[2]//table/thead/tr" position="after">
+                <div class="oe_structure" t-if="o.transaction">
+                    <div id="informations" class="row mt-3 mb-1">
+                        <div name="due_date" position="after">
+                            <p>
+                                <strong>Transaction ID:</strong>
+                                <br/>
+                                <span t-esc="o.transaction"/>
+                            </p>
+                        </div>
+                    </div>
+                </div> --> 
+<!--                <div class="row" t-foreach="o.invoice_line_ids" t-as="line">-->
+<!--                    <strong>Customer Reference:</strong>-->
+<!--                    <div t-if="line.prefer">-->
+<!--                        <p>-->
+<!--                            <span t-esc="line.prefer"/>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </xpath>
+
+<!--            <xpath expr="//table//thead" position="after">-->
+<!--                <th name="due_date" class="text-end">-->
+<!--                    <span>Transaction ID:</span>-->
+<!--                </th>-->
+<!--            </xpath>-->
+
+            <xpath expr="//table/thead/tr/th[@name='th_quantity']" position="before">
+                <th name="td_quantity" class="text-left" valign="top">
+                    <span valign="top">Customer Ref</span>
+                </th>
+            </xpath>
+
+            <xpath expr="//table/tbody/t/tr/t/td[@name='account_invoice_line_name']" position="after">
+                <td valign="top"  class="text-left" name="td_quantity">
+                    <span t-field="line.prefer"/>
+                </td>
+            </xpath>
+        </template>
+    </data>
+</odoo>

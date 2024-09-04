@@ -1,0 +1,14 @@
+<odoo>
+    <menuitem id="menu_school_management_root" name="School Management" sequence="1"/>
+    
+    <menuitem id="menu_school_management_students" name="Students" parent="menu_school_management_root" sequence="10" action="action_student_tree"/>
+    <menuitem id="menu_school_management_teachers" name="Teachers" parent="menu_school_management_root" sequence="20" action="action_teacher_tree"/>
+    <menuitem id="menu_school_management_classes" name="Classes" parent="menu_school_management_root" sequence="30" action="action_class_tree"/>
+    <menuitem id="menu_school_management_subjects" name="Subjects" parent="menu_school_management_root" sequence="40" action="action_subject_tree"/>
+    <menuitem id="menu_school_management_attendance" name="Attendance" parent="menu_school_management_root" sequence="50" action="action_attendance_tree"/>
+    <menuitem id="menu_school_management_exams" name="Exams" parent="menu_school_management_root" sequence="60" action="action_exam_tree"/>
+    <menuitem id="menu_performance_dashboard" name="Performance Dashboard" parent="menu_school_management_root" action="action_performance_dashboard" sequence="70"/>
+    <menuitem id="menu_fees" name="Fees" parent="menu_school_management_root" action="action_fee_tree" sequence="80"/>
+    <menuitem id="menu_config" name="Configuration" parent="menu_school_management_root" sequence="100"/>
+    <menuitem id="menu_academic_year" name="Academic Year" parent="menu_config" action="action_academic_year_tree" sequence="10"/>
+</odoo>

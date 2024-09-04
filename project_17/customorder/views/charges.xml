@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+        <record id="view_order_form_extra_charges_inherited" model="ir.ui.view">
+            <field name="name">sale.order.form.extra.charges.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_open_discount_wizard']" position="before">
+                    <button string="Other Charges"
+                            name="action_open_charges_wizard"
+                            type="object"
+                            class="btn btn-secondary"/>
+                </xpath>
+                
+            </field>
+        </record>
+    
+</odoo>

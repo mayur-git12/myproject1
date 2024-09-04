@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="student_form_view" model="ir.ui.view">
+        <field name="name">student.form.view</field>
+        <field name="inherit_id" ref="students.wb_students_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="job_id" string="Job "/>
+                    
+                </group>
+               
+            </xpath>
+        </field>
+    </record>
+
+    <record id="job_form_view" model="ir.ui.view">
+        <field name="name">job.form.view</field>
+        <field name="model">wb.job</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                              
+                        <field name="company"/>
+                        <field name="address"/>
+                        <field name="mobile"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+</odoo>

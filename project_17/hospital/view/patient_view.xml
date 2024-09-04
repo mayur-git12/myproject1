@@ -1,0 +1,15 @@
+<odoo>
+
+<record id ="hospital.invoice_tree_inherit" model = "ir.iu.view"/>
+    <field name= "name">invoice tree inherit</field>
+    <field name= "model">account.move</field>
+    <field name="inherit_id" ref ="account.view_move_form">
+    <field name = "arch" type="xml">
+        <xpath expr="//field[@name='invoice_partner_display_name']" postision = "after">
+                    <field name="transactuion"/>
+        <xpath>
+
+
+
+
+</odoo>

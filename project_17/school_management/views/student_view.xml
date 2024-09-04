@@ -1,0 +1,90 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_student_tree" model="ir.ui.view">
+        <field name="name">school.student.tree</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="roll_number"/>
+                <field name="name"/>
+                <field name="class_id"/>
+                <field name="age"/>
+                <field name="school_id"/>
+                <field name="attendance_percentage"/>
+                <field name="progress"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_student_form" model="ir.ui.view">
+        <field name="name">school.student.form</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="promote_student" string="Promote" type="object" class="oe_highlight"/>
+                    <button string="Drop" type="object" name="action_drop" class="btn-danger"/>
+                    <button string="Generate Report Card" type="object" name="action_generate_report_card" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="roll_number" readonly="1"/>
+                            <field name="name"/>
+                            <field name="class_id"/>
+                            <field name="date_of_birth"/>
+                            <field name="school_id"/>
+                            <field name="age" readonly="1"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="contact_number"/>
+                            <field name="email"/>
+                            <field name="status" readonly="1"/>
+                            <field name="admission_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- Attendance & Progress Tab -->
+                        <page name="attendance_progress" string="Attendance Progress">
+                            <group>
+                                <field name="attendance_percentage" readonly="1"/>
+                                <field name="progress" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Health Information Tab -->
+                        <page string="Health Information">
+                            <group>
+                                <field name="blood_group"/>
+                                <field name="allergies"/>
+                                <field name="emergency_contact_name"/>
+                                <field name="emergency_contact_number"/>
+                            </group>
+                        </page>
+
+                        <!-- Extracurricular Activities Tab -->
+                        <page string="Extracurricular Activities">
+                            <field name="activities">
+                                <tree>
+                                    <field name="activity_name"/>
+                                    <field name="date"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_student_tree" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

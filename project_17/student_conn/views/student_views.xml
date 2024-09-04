@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    
+    <record id="student_conn.student_tree_inherit" model="ir.ui.view">
+        <field name="name">Student Tree Inherit</field>
+        <field name="model">wb.student</field>
+        <field name="inherit_id" ref="students.wb_students_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='roll_number']" position="after">
+                <field name="newfield1"/>
+                <field name="newfield2"/>
+                <field name="dob"/>
+                
+            </xpath>
+    </field>
+    </record>
+
+    <record id="view_student_form_inherit" model="ir.ui.view">
+        <field name="name">wb.student.form.inherit</field>
+        <field name="model">wb.student</field>
+        <field name="inherit_id" ref="students.wb_students_form_view"/> 
+        <field name="arch" type="xml">
+            <!-- <header>
+                <button name="unlink_button" type="object" string="Unlink More Schools" class="btn-primary"/>
+
+            </header> -->
+            
+            <xpath expr="//field[@name='roll_number']" position="after">
+                
+                <field name="newfield1"/>
+                <field name="newfield2"/>
+                <field name="fatherjobtype"/>
+                <field name="dob" />
+                
+                <field name="fees_id" string="Student Fees" domain="[('fees', '=', True)]"/>
+               
+            </xpath>
+
+            <xpath expr="//field[@name='course_ids']" position="after">
+                <field name="activity_ids">
+                     <tree>
+                        <field name='gamename'/>
+                        <field name='gametype'/>
+                    </tree> 
+                   
+                   
+                </field>
+            </xpath>
+
+            
+            
+            
+        
+        </field>
+    </record>
+
+    <record id="action_unlink_button" model="ir.actions.server">
+        <field name="name">unlink School</field>
+        <field name="model_id" ref="model_wb_student"/>
+        <field name="binding_model_id" ref="model_wb_student"/>
+        <field name="state">code</field>
+        <field name="code">action = records.unlink_button()</field>
+    </record>
+
+</odoo>
+<!-- <notebook> -->
+    <!-- <page string="Details"> -->
+        <!-- <group> -->
+            <!-- <field name="height" /> -->
+            <!-- <field name="enroll_date" /> -->
+        <!-- </group> -->
+    <!-- </page> -->
+    <!-- <page string="More Info"> -->
+        <!-- <group> -->
+            <!-- <field name="join_datetime" /> -->
+            <!-- <field name="status" /> -->
+            <!-- <field name="course_ids" widget="many2many_tags" /> -->
+    <!--  -->
+        <!-- </group> -->
+    <!-- </page> -->
+    <!-- <page string="More School"> -->
+<!--  -->

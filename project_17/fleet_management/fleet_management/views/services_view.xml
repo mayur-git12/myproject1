@@ -1,0 +1,292 @@
+<odoo>
+
+    <!-- tree view -->
+
+    <record id="action_mark_as_done" model="ir.actions.server">
+        <field name="name">Mark As Done</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_services_fleet"/>
+        <field name="binding_model_id" ref="model_services_fleet"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record.state =='draft':
+                    record.test_done()
+        </field>
+    </record>
+
+    <record id="services_view_tree" model="ir.ui.view">
+        <field name="name">services.view.tree</field>
+        <field name="model">services.fleet</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state == 'cancelled'">
+                <field name="customer_id"/>
+                <field name="vehicle_id"/>
+                <field name="vehicle_number"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="category"/>
+                <field name="customer_contact"/>
+                <field name="book_date"/>
+                <field name="payment"/>
+                <field name="state" class='oe_highlight'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- form view -->
+
+    <record id="services_view_form" model="ir.ui.view">
+        <field name="name">services.view.form</field>
+        <field name="model">services.fleet</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="test_done" type="object" state="closed" string="Done"
+                            invisible="'state == 'done'" class='oe_highlight'/>
+                    <button name="%(fleet_management.action_view_fleet_cancel)d" string="Cancel"
+                            type="action" state="cancelled" invisible="state == 'cancelled'"
+                            class='oe_highlight'/>
+                    <field name="state" widget="statusbar" nolabel="1" options="{'clickable': '1'}"/>
+                    <button name="action_delete" type="object" state="closed" string="Delete"/>
+                    <button name="action_in_progress" type="object" state="closed" string="Done"/>
+                    <button name="cron_mail_weekly_remainder" type="object" state="closed" string="Send Mail"
+                            class='oe_highlight' icon='fa-envelope'/>
+                    <button name="create_sale" type="object" state="closed" string="Create Sale order"
+                            class='oe_highlight' invisible="state == 'done'" />
+                    <button name="create_delivery" type="object" state="closed" string="Create Delivery"
+                            class='oe_highlight'/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+<!--                         <button name="create_delivery" type="object" class="oe_stat_button" icon="fa-truck">-->
+<!--                            <div class="o_field_widget o_stat_info">-->
+<!--                                <span class="o_stat_text">Delivery</span>-->
+<!--                            </div>-->
+<!--                        </button>-->
+                        <button name="compute_count_sale" type="object" class="oe_stat_button"
+                                invisible="state not in ['done']" icon="fa-dollar">
+                            <div class="o_field_widget o_stat_info">
+                                <field string=" " name="sale_order_count" widget="statinfo"/>
+                                <span class="o_stat_text">Sales</span>
+                            </div>
+                        </button>
+
+                        <button name="action_view_payment" type="object" class="oe_stat_button" icon="fa-users">
+                            <div class="o_field_widget o_stat_info">
+                                <field name="payment" readonly="1"/>
+                                <span class="o_stat_text">payment</span>
+                            </div>
+                        </button>
+
+<!--                        <button name="createe_roecerd" type="object" class="oe_stat_button" icon="fa-users">-->
+<!--                            <div class="o_field_widget o_stat_info">-->
+<!--                                <span class="o_stat_text">Create</span>-->
+<!--                            </div>-->
+<!--                        </button>-->
+
+                        <button name="action_view_services" type="object" class="oe_stat_button" icon="fa-users">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">services</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="services_seq" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <!-- <field name="vehicle_id" required="1" attrs="{'readonly':[('state','=' ,'done')]}"/> -->
+                            <field name="vehicle_id" required="1"/>
+                            <field name="vehicle_number" readonly="state == 'done'"/>
+                            <field name="category" readonly="state == 'done'"/>
+                            <field name="book_date" readonly="state == done"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="vehicle_model" readonly="state == done"/>
+                            <field name="chassis_number" readonly="state == done"/>
+                            <field name="engine_number" readonly="state == done"/>
+                        </group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="customer_contact"/>
+                            <!--                            <field name="customer_contact" groups="fleet_management.group_fleetmanagement_staff,fleet_management.group_fleetmanagement_manager"/>-->
+                            <field name="payment"/>
+                            <field name="installment"/>
+                            <field name="per_month"/>
+                            <field name="submit_date" readonly="state == done"/>
+                            <field name="customer_complaint"/>
+                            <field name="rc_book_number" readonly="state == done"/>
+                            <field name="vehicle_ids" readonly="state == done"/>
+                        </group>
+                        <group>
+                            <field name="cancel_reason"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pickup Location">
+                            <group>
+                                <group>
+                                    <span class="o_form_label o_td_label" name="address_name">
+                                        <b>Pickup Location</b>
+                                    </span>
+                                    <div class="o_address_format">
+                                        <field name="city" placeholder="City" class="o_address_city"/>
+                                        <field name="states" placeholder="State" class="o_address_city"/>
+                                        <field name="country" placeholder="Country" class="o_address_country"/>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Dropoff Location">
+                            <group>
+                                <group>
+                                    <span class="o_form_label o_td_label" name="address_name">
+                                        <b>Drop Location</b>
+                                    </span>
+                                    <div>
+                                        <field name="city1" placeholder="City" class="o_address_city"/>
+                                        <field name="states1" placeholder="State" class="o_address_city"/>
+                                        <field name="country1" placeholder="Country" class="o_address_country"/>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- search view -->
+
+    <record id="services_view_search" model="ir.ui.view">
+        <field name="name">services.view.search</field>
+        <field name="model">services.fleet</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="vehicle_id"/>
+                <filter name="category" string="Services" domain="[('category', '=', 'services')]"/>
+                <filter name="category" string="Contract" domain="[('category', '=', 'contract')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- kanban view-->
+
+    <record id="services_view_kanban" model="ir.ui.view">
+        <field name="name">services.view.kanban</field>
+        <field name="model">services.fleet</field>
+        <field name="arch" type="xml">
+
+            <kanban>
+                <field name="id"/>
+                <field name="vehicle_id"/>
+                <field name="customer_id"/>
+                <field name="vehicle_number"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_card">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('services.fleet', 'image', record.id.raw_value)"
+                                     alt="image" class="o_image_64_contain"/>
+                            </div>
+                            <div class="oe_kanban_detail">
+                                <bold>
+                                    <strong class="o_kanban_record_title">
+                                        <field name="vehicle_id"/>
+                                    </strong>
+                                </bold>
+                                <div class="o_kanban_tags_section">
+                                    <ul>
+                                        <li>Customer Id:
+                                            <field name="customer_id"/>
+                                        </li>
+                                        <li>Vehicle Number:
+                                            <field name="vehicle_number"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- graph view-->
+
+    <record id="services_view_graph" model="ir.ui.view">
+        <field name="name">services.view.graph</field>
+        <field name="model">services.fleet</field>
+        <field name="arch" type="xml">
+            <graph string="services Graph" type="bar">
+                <field name="category"></field>
+            </graph>
+        </field>
+    </record>
+
+<!--    gantt-->
+
+    <record id="services_view_view_gantt" model="ir.ui.view">
+    <field name="name">services.view.gantt</field>
+    <field name="model">services.fleet</field>
+    <field name="arch" type="xml">
+        <gantt date_start="book_date"
+               date_stop="submit_date"
+               default_group_by='customer_id'>
+        </gantt>
+    </field>
+    </record>
+
+    <!--    !calendar view-->
+
+    <record id="services_view_calendar" model="ir.ui.view">
+        <field name="name">services.view.calendar</field>
+        <field name="model">services.fleet</field>
+        <field name="arch" type="xml">
+            <calendar string="services.calendar" date_start="book_date" color="">
+
+            </calendar>
+        </field>
+    </record>
+
+
+    <!--    #Action view-->
+
+
+    <record id="action_services_details" model="ir.actions.act_window">
+        <field name="name">Services Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">services.fleet</field>
+        <field name="view_mode">tree,form,graph,kanban,calendar,pivot,gantt</field>
+    </record>
+
+    <menuitem
+            id="menu_services"
+            name="Services"
+            sequence="2"
+            parent="Fleet_Management_menu_root"/>
+
+    <menuitem
+            id="menu_service"
+            name="Services"
+            sequence="1"
+            action="action_services_details"
+            groups="fleet_management.group_fleetmanagement_user"
+            parent="menu_services"/>
+    <!--    <record id="fleet_management.report_services" model="ir.actions.report">-->
+    <!--        <field name="binding_model_id" eval="False"/>-->
+    <!--    </record>-->
+
+
+</odoo>

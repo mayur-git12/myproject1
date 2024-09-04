@@ -1,0 +1,51 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_academic_year_tree" model="ir.ui.view">
+        <field name="name">academic.year.tree</field>
+        <field name="model">academic.year</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="current"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_academic_year_form" model="ir.ui.view">
+        <field name="name">academic.year.form</field>
+        <field name="model">academic.year</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="current"/>
+                    </group>
+                    <notebook>
+                        <page name="Classes" string="Classes">
+                            <field name="classes_ids">
+                                <tree editable="bottom">
+                                    <field name="name" />
+                                    <field name="teacher_id" />
+                                    <field name="next_class" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_academic_year_tree" model="ir.actions.act_window">
+        <field name="name">Academic Year</field>
+        <field name="res_model">academic.year</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

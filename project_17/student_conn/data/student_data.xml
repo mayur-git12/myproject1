@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="student_record_1" model="wb.student">
+        <field name="name">admin</field>
+        <field name="email">admin123@gmail.com</field>
+        <field name="School_type">Primary</field> 
+    </record>
+</odoo>
